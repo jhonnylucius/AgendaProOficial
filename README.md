@@ -60,6 +60,117 @@ Doctor summary (to see all details, run flutter doctor -v):
 [√] Network resources
 ```
 
+
+# Guia de Configuração para Firebase, Google e Facebook no Flutter
+
+🚀 Este guia irá orientá-lo na configuração de contas e aplicativos nos provedores Firebase, Google e Facebook, além de mostrar como usar o `.env` para armazenar dados sensíveis no projeto.
+
 ---
+
+## 🌳 **Usando o Flutter DotEnv**
+
+O Flutter DotEnv é usado para gerenciar variáveis de ambiente de forma segura, evitando expor dados sensíveis (como chaves de API) diretamente no código.
+
+### Por que usar?
+- 🔒 Evita exposição de chaves de API no repositório.
+- 🔄 Facilita a troca de ambientes (desenvolvimento, produção, etc.).
+
+### Como configurar:
+
+1. Adicione a dependência ao `pubspec.yaml`:
+
+   ```yaml
+   dependencies:
+     flutter:
+       sdk: flutter
+     flutter_dotenv: ^5.0.2
+   ```
+
+2. Crie um arquivo `.env` no diretório raiz do projeto (mesmo nível de `pubspec.yaml`). Exemplo:
+
+   ```env
+   FACEBOOK_APP_ID=618762637149280
+   FIREBASE_API_KEY=AIzaSyAEr3Y8-EU3FMBhdm6HigG-SrNpE24GSW0
+   ```
+
+3. Inclua o `.env` no `.gitignore`:
+
+   ```
+   .env
+   ```
+
+4. No código, importe e carregue o `.env`:
+
+   ```dart
+   import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+   void main() async {
+     await dotenv.load();
+     runApp(MyApp());
+   }
+   ```
+
+   Use as variáveis:
+
+   ```dart
+   final facebookAppId = dotenv.env['FACEBOOK_APP_ID'];
+   ```
+
+---
+
+## 🔥 **Configuração no Firebase** 
+
+1. Acesse [Firebase Console](https://console.firebase.google.com/) e crie um projeto.
+2. Adicione o aplicativo Android:
+   - Informe o `Nome do Pacote`.
+   - Insira o SHA1 do certificado de assinatura.
+3. Baixe o arquivo `google-services.json` e mova para `android/app/` no projeto Flutter.
+4. Atualize o arquivo `android/build.gradle`:
+   ```gradle
+   dependencies {
+       classpath 'com.google.gms:google-services:4.4.2'
+   }
+   ```
+5. Atualize `android/app/build.gradle`:
+   ```gradle
+   apply plugin: 'com.google.gms.google-services'
+   ```
+
+---
+
+## 🌐 **Configuração no Google** 
+
+1. Acesse [Google Cloud Console](https://console.cloud.google.com/).
+2. Crie um projeto e ative a API de autenticação OAuth.
+3. Configure as credenciais para `Android`:
+   - Insira o `Nome do Pacote`.
+   - Adicione o certificado SHA1.
+4. Baixe o arquivo `google-services.json`.
+
+---
+
+## 📘 **Configuração no Facebook** 
+
+1. Acesse [Facebook Developers](https://developers.facebook.com/).
+2. Crie um novo aplicativo.
+3. Vá para **Configurações > Básico** e:
+   - Insira o nome do aplicativo.
+   - Adicione o ID do pacote.
+4. Gere a chave secreta do aplicativo.
+5. Ative o **Login do Facebook** e configure as permissões.
+
+---
+
+## 🌟 **Exemplo Completo do `.env`**
+
+```env
+FACEBOOK_APP_ID=618762637149280
+FIREBASE_API_KEY=AIzaSyAEr3Y8-EU3FMBhdm6HigG-SrNpE24GSW0
+GOOGLE_CLIENT_ID=your-google-client-id
+```
+
+---
+
+💡 **Contribuição:** Este guia foi criado para ajudar os colaboradores do projeto a configurarem os provedores e a manterem a segurança de dados sensíveis.
 
 Pronto! 🎉 Seu ambiente de desenvolvimento está configurado para começar a desenvolver projetos incríveis com **Flutter** e **Dart**!
