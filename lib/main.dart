@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'AgendaPro Oficial',
+      title: 'AgendaPro',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
