@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Text('Bem-vindo!'),
+        child: Text('Bem-vindo a sua agenda de Serviços!'),
       ),
     );
   }
