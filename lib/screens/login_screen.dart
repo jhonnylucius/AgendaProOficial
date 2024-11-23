@@ -1,22 +1,61 @@
 import 'package:flutter/material.dart';
-import '../service/authService.dart';
+import 'package:agendapro_oficial/service/authService.dart'; // Certifique-se de que o caminho está correto
 
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
-class LoginScreen extends StatelessWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final authService = AuthService(); // Instancia o serviço de autenticação
+
+  bool _isLoading = false; // Para exibir um indicador de carregamento
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: Center(
-        child: ElevatedButton(
+        child: _isLoading
+            ? const CircularProgressIndicator() // Indicador de carregamento
+            : ElevatedButton(
           onPressed: () async {
-            final user = await AuthService().loginWithFacebook();
-            if (user != null) {
-              Navigator.pushReplacementNamed(context, '/home');
-            } else {
-              print('Falha no login.');
+            setState(() {
+              _isLoading = true;
+            });
+
+            try {
+              // Chama a função de login do AuthService
+              final userCredential = await authService.loginWithFacebook();
+              if (userCredential != null) {
+                // Navega para a tela principal após login bem-sucedido
+                Navigator.pushReplacementNamed(context, '/home');
+              } else {
+                // Mostra mensagem de erro
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Erro no login. Por favor, tente novamente.'),
+                  ),
+                );
+              }
+            } catch (e) {
+              // Trata erros e exibe mensagem ao usuário
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Erro inesperado: $e'),
+                ),
+              );
+            } finally {
+              setState(() {
+                _isLoading = false;
+              });
             }
           },
-          child: Text('Login com Facebook'),
+          child: const Text('Login com Facebook'),
         ),
       ),
     );

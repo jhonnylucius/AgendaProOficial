@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import '../service/authService.dart';
 
-
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Screen'),
+        title: const Text('Home Screen'),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () async {
+              // Chama o metodo de logout
               await AuthService().logout();
+
+              // Navega de volta para a tela de login
               Navigator.pushReplacementNamed(context, '/');
             },
-          )
+          ),
         ],
       ),
-      body: Center(
-        child: Text('Bem-vindo a sua agenda de Serviços!'),
+      body: const Center(
+        child: Text('Bem-vindo'),
       ),
     );
   }
