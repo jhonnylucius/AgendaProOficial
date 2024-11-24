@@ -89,8 +89,8 @@ O Flutter DotEnv é usado para gerenciar variáveis de ambiente de forma segura,
 2. Crie um arquivo `.env` no diretório raiz do projeto (mesmo nível de `pubspec.yaml`). Exemplo:
 
    ```env
-   FACEBOOK_APP_ID=618762637149280
-   FIREBASE_API_KEY=AIzaSyAEr3Y8-EU3FMBhdm6HigG-SrNpE24GSW0
+   FACEBOOK_APP_ID=61876263734643634634149280
+   FIREBASE_API_KEY=Efbz\dU3FMB33333373ahdbhdm6HigG-SrNpE24GSW0
    ```
 
 3. Inclua o `.env` no `.gitignore`:
